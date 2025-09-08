@@ -1,12 +1,13 @@
-FROM downloaderzone/wzmlx:v3
+FROM dpmir/vt:latest
 
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 
-RUN uv venv --system-site-packages
-
 COPY requirements.txt .
-RUN uv pip install --no-cache-dir -r requirements.txt
+
+RUN pip3 install --upgrade pip setuptools
+RUN pip3 install --no-cache-dir --ignore-installed blinker && \
+    pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
